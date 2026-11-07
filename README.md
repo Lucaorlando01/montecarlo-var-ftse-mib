@@ -77,13 +77,13 @@ $$\text{VaR} = -(\mu_p + \sigma_p z_{1-\alpha}), \qquad \text{ES} = -\mu_p + \si
 
 The simulation matches the closed form within Monte Carlo error. Ignoring correlation, that is skipping the Cholesky step, would understate VaR by about a third.
 
-<p align="center"><img src="figures/01_simulated_distribution.png" width="700"></p>
+<p align="center"><img src="01_simulated_distribution.png" width="700"></p>
 
 ### Correlation and crises (Step 5)
 
 Moving the average correlation from its current level (0.32) to perfect correlation raises VaR by 45%. With only 5 stocks, though, the growth is concave: portfolio volatility scales roughly as $\sqrt{1/n + (1-1/n)\bar\rho}$.
 
-<p align="center"><img src="figures/02_correlation_sensitivity.png" width="850"></p>
+<p align="center"><img src="02_correlation_sensitivity.png" width="850"></p>
 
 Crisis parameters applied to today's portfolio A:
 
@@ -111,13 +111,13 @@ The hypotheses were stated before looking at the results:
 - **H2 — rejected, with one exception.** The ratio VaR(C)/VaR(A) falls from 0.85 today to 0.67 (2008), 0.73 (2011) and 0.79 (2022), so diversification helps *more* in sector-specific crises. It rises to 0.90 only in Covid, the one truly systemic shock.
 - **H3 — confirmed.** Correlation matters more in C: higher covariance share, and a larger "correlation only" multiplier in every crisis (Covid: ×1.66 vs ×1.34).
 
-<p align="center"><img src="figures/03_portfolios_crises.png" width="850"></p>
+<p align="center"><img src="03_portfolios_crises.png" width="850"></p>
 
 ### Backtesting (Steps 7–9)
 
 VaR is forecast each day using only past data, from December 2009 to November 2026: 4,284 daily observations and 204 non-overlapping months. All five models are compared on the same sample.
 
-<p align="center"><img src="figures/04_backtest_exceptions.png" width="850"></p>
+<p align="center"><img src="04_backtest_exceptions.png" width="850"></p>
 
 **Excess of exceptions over expected, 1-day VaR (0% = perfect):**
 
@@ -141,7 +141,7 @@ VaR is forecast each day using only past data, from December 2009 to November 20
 
 **Reading the ladder.** The Gaussian 2-year model reacts too slowly. In 2011 it records 16 exceptions against 2.6 expected, and after crises it stays too conservative. EWMA removes the clustering at 99% but has too many exceptions. Splitting the remaining improvement shows that on portfolio A about **41%** comes from recalibrating the residual scale, **42%** from fat tails and **17%** from asymmetry (portfolio C: 32% / 43% / 25%). Without the recalibrated model as a control, the Student-t would have been credited with the scale effect too.
 
-<p align="center"><img src="figures/06_basel_traffic_light.png" width="850"></p>
+<p align="center"><img src="06_basel_traffic_light.png" width="850"></p>
 
 | Model (portfolio A, 99%) | Green | Yellow | Red |
 |---|---|---|---|
@@ -155,7 +155,7 @@ VaR is forecast each day using only past data, from December 2009 to November 20
 
 EWMA-standardised residuals of portfolio A have excess kurtosis 2.89 and skewness −0.50. The estimated Student-t degrees of freedom range from 5.7 to 10.3. Residuals beyond 4 standard deviations are 47 times more frequent than under normality, and beyond 5 standard deviations about 2,200 times. Losses dominate the left tail: beyond 3 standard deviations there are 38 losses and 11 gains, against about 25 per side under a symmetric t.
 
-<p align="center"><img src="figures/05_residual_tails.png" width="850"></p>
+<p align="center"><img src="05_residual_tails.png" width="850"></p>
 
 Multivariate-t Monte Carlo with the same covariance as the Gaussian (ν = 5.9):
 
